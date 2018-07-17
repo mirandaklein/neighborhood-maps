@@ -34,13 +34,16 @@ export default class Map extends Component {
       const mapRef = this.refs.map; // looks for HTML div ref 'map'. Returned in render below.
       const node = ReactDOM.findDOMNode(mapRef); // finds the 'map' div in the React DOM, names it node
 
-      let {zoom}= this.props;
+      let {intialCenter,zoom}= this.props;
       const {lat, lng} = this.state.currentLocation;
       const center= new maps.LatLng(lat,lng);
       const mapConfig = Object.assign({}, {
         center: center,
         zoom: zoom
       })
+
+
+    let markers = [];
 
     this.map = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
 
@@ -50,24 +53,24 @@ export default class Map extends Component {
       {title: 'Downtown Grill and Brewery', location: {lat: 35.9657, lng:-83.9181}},
       {title: 'Sutrees', location: {lat: 35.9660, lng: -83.9189}},
       {title: 'Urban Bar', location: {lat: 35.9707, lng: -83.9187}},
-    ]
+    ];
 
-    for (let i= 0; i < locations.length; i++){
-    let location= locations[i];
+
+    //Markers
+    for (let i = 0; i < locations.length; i++){
+      let position = locations[i].location;
+      let title = locations[i].title;
     let marker = new google.maps.Marker({
-      position: location,
-      title: "hello",
-      map: this.map
+      position: position,
+      title: title,
+      map: this.map,
+      id: i
     });
-  
-
-    
-
-    marker.setMap(this.map);
-  
+    markers.push(marker)
   }
 
-  }
+    //Info Window
+    }
 }
   
 
@@ -86,10 +89,10 @@ Map.propTypes = {
     zoom: PropTypes.number.isRequired
   }
 Map.defaultProps = {
-    zoom: 16,
+    zoom: 15,
     // Knoxville, TN, by default
     initialCenter: {
-      lat: 35.9630,
-      lng: -83.9200
+      lat: 35.9691,
+      lng: -83.9185
     }
 }
