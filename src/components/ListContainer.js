@@ -5,7 +5,7 @@ export default class ListContainer extends Component{
     render(){
         return(
             <div className="list-container">
-                <h1>Knoxville Breweries</h1>
+                <h1>Knoxville Bars</h1>
                 <label>
                     <input type="text" />
                     </label>

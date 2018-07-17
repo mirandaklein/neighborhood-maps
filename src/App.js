@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import './App.css';
 import { GoogleApiWrapper } from 'google-maps-react';
 import Map from './components/Map.js'
+import ListContainer from './components/ListContainer';
+
+
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={}
+}
+
   render() {
-    const style={
-      width: '100vw',
-      height: '100vw'
-    }
     return (
-      <div style={style} className="container">
+      <div className="container">
           <Map
-          google={this.props.google}
-          />
+          google={this.props.google}>
+         </Map>
+         <ListContainer/>
         </div>
     );
   }
