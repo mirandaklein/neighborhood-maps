@@ -20,10 +20,27 @@ position: absolute;
   
 }
 
-input{
-  width: 50%;
-  margin: 25px;
+
+
+
+/*Search Field and List*/
+.myInput {
+  margin: 40px;
+  width: 70%; /* Full-width */
+  font-size: 18px; /* Increase font-size */
+  text-align: left;
+  
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
 }
+
+#locations-list {
+  /* Remove default list styling */
+  list-style-type: none;
+ 
+}
+
+
 
 
 
