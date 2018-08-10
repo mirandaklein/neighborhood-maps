@@ -3,27 +3,27 @@ import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types';
 
 export default class Map extends Component {
-    constructor(props) {
-        super(props);
-    
-        const {lat, lng} = this.props.initialCenter;
-        this.state = {
-          currentLocation: {
-            lat: lat,
-            lng: lng
-          }
-        }
-      }
+  constructor(props) {
+    super(props);
 
- componentDidUpdate(prevProps, prevState) {
-        if (prevProps.google !== this.props.google) {
-          this.loadMap();
-        }
+    const {lat, lng } = this.props.initialCenter;
+    this.state = {
+      currentLocation: {
+        lat: lat,
+        lng: lng
       }
+    }
+  }
+componentDidUpdate(prevProps, prevState) {
+  if (prevProps.google !== this.props.google) {
+    this.loadMap();
+  }
+}
 
   componentDidMount() {
     this.loadMap(); // call loadMap function to load the google map
   }
+
 // Checks that API is available & sets up map
 loadMap() {
   if (this.props && this.props.google) { // checks to make sure that props have been passed
@@ -41,9 +41,6 @@ loadMap() {
       zoom: zoom
     })
 
-
-    
-
     let map = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
 
     let locations = this.props.locations;
@@ -55,6 +52,8 @@ loadMap() {
     
     for (let i = 0; i < locations.length; i++) {
       let position = locations[i].location;
+      let lat = locations[i].location.lat;
+      let lng = locations[i].location.lng;
       let title = locations[i].title;
       let marker = new google.maps.Marker({
         position: position,
@@ -71,27 +70,34 @@ loadMap() {
       marker.addListener('click', function () {
         populateInfoWindow(this, largeInfoWindow);
       });
+
+      locations.marker = marker;
+
       map.fitBounds(bounds);
 
-
+    };
       // Info Window
-      function populateInfoWindow(marker, infowindow) {
-        // Check to make sure the infowindow is not already opened on this marker.
-        if (infowindow.marker !== marker) {
-          // Clear the infowindow content to give the streetview time to load.
-          infowindow.marker = marker;
-          infowindow.setContent('<div>' + marker.title + '</div>');
-          infowindow.open(map, marker);
+  function populateInfoWindow(marker, infowindow) {
+    // Check to make sure the infowindow is not already opened on this marker.
+    if (infowindow.marker !== marker) {
+      infowindow.marker = marker;
+      marker.setAnimation(window.google.maps.Animation.BOUNCE);
+      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.open(map, marker);
+      
+      
+      
 
-          // Make sure the marker property is cleared if the infowindow is closed.
-          infowindow.addListener('closeclick', function () {
-            infowindow.marker = null;
-          });
-        }
-      }
+      // Make sure the marker property is cleared if the infowindow is closed.
+      infowindow.addListener('closeclick', function () {
+        infowindow.marker = null;
+       });
+     }
     }
   }
 }
+ 
+
 
   render(){
 

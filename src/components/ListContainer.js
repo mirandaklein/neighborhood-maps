@@ -6,22 +6,18 @@ export default class ListContainer extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            'query': '',
             'locations': []
         }
 
     }
    
 
-    updateQuery = (query) => {
-        this.setState({ query: query })
-    }
-
+  
 
     render(){
         let showingLocations
-        if (this.state.query){
-            const match= new RegExp(escapeRegExp(this.state.query), 'i')
+        if (this.props.query){
+            const match= new RegExp(escapeRegExp(this.props.query), 'i')
             showingLocations = this.props.locations.filter((location) => match.test(location.title))
         } else {
             showingLocations = this.props.locations
@@ -31,17 +27,17 @@ export default class ListContainer extends Component{
 
         return(
             <div className="list-container">
-                <h1>Knoxville Bars</h1>
+                <h1>KNOXVILLE BARS</h1>
                     <form>
                          <input 
                             type="text" 
                             className="myInput"  
                             placeholder="Search.."
-                            value={this.state.query}
-                            onChange={(event) => this.updateQuery(event.target.value)}
+                            value={this.props.query}
+                            onChange={this.props.onChange}
                             />
                      </form>
-                <ul className='list-locations'>
+                <ul className='locations-list'>
                     {showingLocations.map((location)=> (
                         <li key={location.title} className='locations-list-item'>
                         <p>{location.title}</p>

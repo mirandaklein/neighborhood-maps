@@ -1,4 +1,7 @@
 /*Main Application*/
+body{
+  color: rgb(49, 47, 47);
+}
 
 h1{
   text-align: center;
@@ -17,6 +20,8 @@ position: absolute;
 .list-container{
   height: 100%;
   width: 100%;
+  font-family: 'Montserrat', sans-serif;
+
   
 }
 
@@ -29,6 +34,7 @@ position: absolute;
   width: 70%; /* Full-width */
   font-size: 18px; /* Increase font-size */
   text-align: left;
+  font-family: 'Montserrat', sans-serif;
   
   border: 1px solid #ddd; /* Add a grey border */
   margin-bottom: 12px; /* Add some space below the input */
