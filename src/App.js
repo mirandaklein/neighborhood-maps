@@ -3,14 +3,13 @@ import './App.css';
 import { GoogleApiWrapper } from 'google-maps-react';
 import Map from './components/Map.js';
 import ListContainer from './components/ListContainer.js';
-import escapeRegExp from 'escape-string-regexp';
-import sortBy from 'sort-by';
+
 
 
 class App extends Component {
   constructor(){
     super();
-    const locations= [
+    let locations= [
       {title: 'Barleys Taproom & Pizzeria', location: {lat: 35.9709, lng: -83.9173}},
       {title: 'Preservation Pub', location: {lat: 35.9657, lng: -83.9196}},
       {title: 'Downtown Grill and Brewery', location: {lat: 35.9657, lng:-83.9181}},
@@ -20,35 +19,26 @@ class App extends Component {
 
     this.state = {
       locations: locations,
-      query: ''
+      query: '',
+      markers: []
     }
+    
+  };
 
-    this.showItAll = this.showItAll.bind(this);
-    }
-
-  
-  showItAll() {
-    let showingLocations
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
-      showingLocations = this.state.locations.filter((location) => match.test(location.title))
-    } else {
-      showingLocations = this.state.locations
-    }
-    showingLocations.sort(sortBy('title'))
-    console.log(showingLocations);
-  }
-
-  updateQuery = (query) => {
-    this.setState({ query: query })
+updateQuery = (query) => {
+  this.setState({
+    query: query
+  })
 }
 
+
+
+
   render() {
+   
     let locations = this.state.locations;
-
+   
     
-  
-
     if (!this.props.loaded){
       return <div>Loading...</div>
     }
@@ -63,19 +53,17 @@ class App extends Component {
                   lng: -83.9185
                 }
              }
+            query= {this.state.query}  
             locations={locations}
-            showingLocations={this.showItAll}
-            query= {this.state.query}
-
+            onChange={(event) => this.updateQuery(event.target.value)}
           >
           </Map>
           <ListContainer
-            showingLocations={this.showItAll}
-            locations= {locations}
+            locations={locations}
             onChange={(event) => this.updateQuery(event.target.value)}  
-            query= {this.state.query}        
-            />
-        
+            query= {this.state.query}   
+            
+            />    
         </div>
     )
   }

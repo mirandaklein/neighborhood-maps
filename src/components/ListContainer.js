@@ -3,18 +3,7 @@ import escapeRegExp from 'escape-string-regexp';
 import sortBy from 'sort-by';
 
 export default class ListContainer extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {
-            'locations': []
-        }
-
-    }
-   
-
-  
-
-    render(){
+    filterLocations() {
         let showingLocations
         if (this.props.query){
             const match= new RegExp(escapeRegExp(this.props.query), 'i')
@@ -23,8 +12,11 @@ export default class ListContainer extends Component{
             showingLocations = this.props.locations
         }
         showingLocations.sort(sortBy('title'))
-        console.log(showingLocations);
+        return showingLocations
+    }
 
+
+    render(){
         return(
             <div className="list-container">
                 <h1>KNOXVILLE BARS</h1>
@@ -34,11 +26,11 @@ export default class ListContainer extends Component{
                             className="myInput"  
                             placeholder="Search.."
                             value={this.props.query}
-                            onChange={this.props.onChange}
+                            onChange={this.props.onChange.bind(this)}
                             />
                      </form>
                 <ul className='locations-list'>
-                    {showingLocations.map((location)=> (
+                    {this.filterLocations().map((location)=> (
                         <li key={location.title} className='locations-list-item'>
                         <p>{location.title}</p>
                         </li>
