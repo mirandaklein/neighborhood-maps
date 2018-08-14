@@ -14,7 +14,8 @@ export default class Map extends Component {
       currentLocation: {
         lat: lat,
         lng: lng
-      }
+      },
+      infowindow: '',
     }
   }
 
@@ -38,8 +39,6 @@ addFilteredMarkers(){
   let filteredLocations = this.filterLocations();
   let filteredMarkers = this.markers.filter(marker => 
                           filteredLocations.find(location => marker.title === location.title))
-console.log("this is filtered markers")
- console.log(filteredMarkers)
  filteredMarkers.forEach(marker => {
    marker.setMap(this.map);
  });
@@ -59,7 +58,6 @@ filterLocations() {
     showingLocations = this.props.locations
   }
   showingLocations.sort(sortBy('title'))
-  console.log(showingLocations);
   return showingLocations
 }
 
@@ -82,36 +80,49 @@ loadMap() {
     })
 
     this.map = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
-    
+
     this.markers = [];
     let locations = this.filterLocations();
     let largeInfoWindow = new google.maps.InfoWindow();
     var bounds = new google.maps.LatLngBounds();
-    
+
+    this.setState({
+      infowindow: largeInfoWindow
+    });
+
     for (let i = 0; i < locations.length; i++) {
       let position = locations[i].location;
       let title = locations[i].title;
+      let lat = locations[i].location.lat;
+      let lng = locations[i].location.lng;
 
       let marker = new google.maps.Marker({
         position: position,
         title: title,
         animation: google.maps.Animation.DROP,
         map: this.map,
-        id: i
+        id: i,
+        lat: lat,
+        lng : lng,
 
       });
 
-      console.log(this.markers);
       this.markers.push(marker);
 
       //Info Window
       marker.addListener('click', function () {
         populateInfoWindow(this, largeInfoWindow, this.map);
       });
+
+      window.google.maps.event.addListener(this.map, 'click', function () {
+        largeInfoWindow.close();
+        marker.setAnimation(null);
+      });
+
       bounds.extend(marker.position);
     }
 
-    this.map.fitBounds(bounds);
+      this.map.fitBounds(bounds);
     
       // Info Window
       function populateInfoWindow(marker, infowindow, map) {
@@ -121,20 +132,51 @@ loadMap() {
           marker.setAnimation(window.google.maps.Animation.BOUNCE);
           infowindow.setContent('<div>' + marker.title + '</div>');
           infowindow.open(map, marker);
-          
+          getMarkerInfo(marker);
+
           // Make sure the marker property is cleared if the infowindow is closed.
           infowindow.addListener('closeclick', function () {
             infowindow.marker = null;
-            if (infowindow.marker !== marker){
+            if (infowindow.marker !== marker) {
               marker.setAnimation(null);
             }
-           });
-         }
+          });
         }
+      
+
+      function getMarkerInfo(marker) {
+          var self = this;
+          var clientId = "CRPNQZKLQSLFOOPWSUQS3BBYIMZS01RIR22KIGNMYP2LSHI2";
+          var clientSecret = "HR2WRPIRAHBKOMJKAXAZ2CKNUDUZJMWDPX1A0THJSTCTYMR4";
+          var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng() + "&limit=1";
+          fetch(url)
+              .then(
+                  function (response) {
+                      if (response.status !== 200) {
+                          self.state.infowindow.setContent("Sorry data can't be loaded");
+                          return;
+                      }
+  
+                      // Examine the text in the response
+                      response.json().then(function (data) {
+                          var location_data = data.response.venues[0];
+                          var verified = '<b>Verified Location: </b>' + (location_data.verified ? 'Yes' : 'No') + '<br>';
+                          var checkinsCount = '<b>Number of CheckIn: </b>' + location_data.stats.checkinsCount + '<br>';
+                          var usersCount = '<b>Number of Users: </b>' + location_data.stats.usersCount + '<br>';
+                          var tipCount = '<b>Number of Tips: </b>' + location_data.stats.tipCount + '<br>';
+                          var readMore = '<a href="https://foursquare.com/v/'+ location_data.id +'" target="_blank">Read More on Foursquare Website</a>'
+                          infowindow.setContent(checkinsCount + usersCount + tipCount + verified + readMore);
+                      });
+                  }
+              )
+              .catch(function (err) {
+                  self.state.infowindow.setContent("Sorry data can't be loaded");
+              });
+      }
 
   }
 }
-
+}
 
   render(){
     return ( // in our return function you must return a div with ref='map' and style.
