@@ -3,6 +3,7 @@ import escapeRegExp from 'escape-string-regexp';
 import sortBy from 'sort-by';
 
 export default class ListContainer extends Component{
+    //filterLocations filters through locations to get location title and coordinates
     filterLocations() {
         let showingLocations
         if (this.props.query){
@@ -12,6 +13,7 @@ export default class ListContainer extends Component{
             showingLocations = this.props.locations
         }
         showingLocations.sort(sortBy('title'))
+        console.log(showingLocations);
         return showingLocations
     }
 
@@ -31,7 +33,7 @@ export default class ListContainer extends Component{
                      </form>
                 <ul className='locations-list'>
                     {this.filterLocations().map((location)=> (
-                        <li key={location.title} className='locations-list-item'>
+                        <li key={location.title} className='locations-list-item' tabIndex='0'>
                         <p>{location.title}</p>
                         </li>
                     ))}

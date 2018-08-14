@@ -13,7 +13,7 @@ class App extends Component {
       {title: 'Barleys Taproom & Pizzeria', location: {lat: 35.9709, lng: -83.9173}},
       {title: 'Preservation Pub', location: {lat: 35.9657, lng: -83.9196}},
       {title: 'Downtown Grill and Brewery', location: {lat: 35.9657, lng:-83.9181}},
-      {title: 'Sutrees High Gravity Tavern', location: {lat: 35.9660, lng: -83.9189}},
+      {title: 'Sutrees High Gravity Tavern & Harrogates Lounge', location: {lat: 35.9660, lng: -83.9189}},
       {title: 'Urban Bar', location: {lat: 35.9707, lng: -83.9187}},
     ]
 
@@ -31,7 +31,10 @@ updateQuery = (query) => {
   })
 }
 
-
+//Error handling for Google Maps API
+gm_authFailure() { 
+  alert("Google Maps API has failed to load"); // here you define your authentication failed message
+};
 
 
   render() {

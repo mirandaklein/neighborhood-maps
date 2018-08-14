@@ -13,7 +13,8 @@ ___
 1. Visit https://github.com/mirandaklein/neighborhood-maps
 2. Clone repository
 3. Open terminal and cd into repository 
-4. Use the command `npm run start` to launch the application
+4. Install node modules with the command `npm install`
+5. Use the command `npm run start` to launch the application
 
 ___
 ## Dependencies
