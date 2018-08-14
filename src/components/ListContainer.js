@@ -33,7 +33,7 @@ export default class ListContainer extends Component{
                      </form>
                 <ul className='locations-list'>
                     {this.filterLocations().map((location)=> (
-                        <li key={location.title} className='locations-list-item' tabIndex='0'>
+                        <li key={location.title} className='locations-list-item' tabIndex='0' role="textbox" contenteditable="true">
                         <p>{location.title}</p>
                         </li>
                     ))}

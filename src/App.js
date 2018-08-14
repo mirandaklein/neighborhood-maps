@@ -14,7 +14,7 @@ class App extends Component {
       {title: 'Preservation Pub', location: {lat: 35.9657, lng: -83.9196}},
       {title: 'Downtown Grill and Brewery', location: {lat: 35.9657, lng:-83.9181}},
       {title: 'Sutrees High Gravity Tavern & Harrogates Lounge', location: {lat: 35.9660, lng: -83.9189}},
-      {title: 'Urban Bar', location: {lat: 35.9707, lng: -83.9187}},
+      {title: 'Pilot Light', location: {lat: 35.9705, lng: -83.9181}}
     ]
 
     this.state = {

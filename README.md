@@ -26,9 +26,9 @@ ___
 ___
 ## Running project in Production Mode
 1. cd to the working directory
-2. Run the command `npm run build` to build production ready optimized code.
+2. Run the command `npm run build serve -s build` to build production ready optimized code with service worker.
 3. Run the command `npm run deploy` to deploy to gh-pages branch
-4. View the online demo at https://mirandaklein.github.io/neighborhood-maps/
+4. Visit http://localhost:5000/ in browser
 ___
 ## Dependencies
 
