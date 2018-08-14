@@ -118,17 +118,20 @@ loadMap() {
 
       this.markers.push(marker);
 
+       
       //Info Window
       marker.addListener('click', function () {
         populateInfoWindow(this, largeInfoWindow, this.map);
       });
+      
       //Info Window for Filtered Markers
-      marker.addListener(function(){
-        if (this.markers.length < 1 ){
-          marker.setAnimation(this.props.google.Animation.BOUNCE);
-          populateInfoWindow(this, largeInfoWindow, this.map)
-        }
-      });
+      function letsDoIt(){
+      let matches = marker.title.match(title);
+      if (matches){
+         return populateInfoWindow(marker, largeInfoWindow, this.map);
+       }
+      }
+    
 
       window.google.maps.event.addListener(this.map, 'click', function () {
         largeInfoWindow.close();
@@ -148,7 +151,7 @@ loadMap() {
           infowindow.marker = marker;
           marker.setAnimation(google.maps.Animation.BOUNCE);
           setTimeout(function () {
-            marker.setAnimation(null);
+           marker.setAnimation(null);
           }, 1520);
           infowindow.setContent('<div>' + marker.title + '</div>');
           infowindow.open(map, marker);
