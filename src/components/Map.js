@@ -39,10 +39,17 @@ addFilteredMarkers(){
   let filteredLocations = this.filterLocations();
   let filteredMarkers = this.markers.filter(marker => 
                           filteredLocations.find(location => marker.title === location.title))
+                          
  filteredMarkers.forEach(marker => {
    marker.setMap(this.map);
+   let matches = marker.title.match(filteredLocations);
+   if (matches){
+    marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
+    }
  });
 }
+
+
 
 updateMap() {
   this.clearMarkers();
@@ -89,6 +96,7 @@ loadMap() {
     this.setState({
       infowindow: largeInfoWindow
     });
+    this.props.callbackFromParent(largeInfoWindow);
 
     for (let i = 0; i < locations.length; i++) {
       let position = locations[i].location;
@@ -106,12 +114,20 @@ loadMap() {
         lng : lng,
 
       });
+      
 
       this.markers.push(marker);
 
       //Info Window
       marker.addListener('click', function () {
         populateInfoWindow(this, largeInfoWindow, this.map);
+      });
+      //Info Window for Filtered Markers
+      marker.addListener(function(){
+        if (this.markers.length < 1 ){
+          marker.setAnimation(this.props.google.Animation.BOUNCE);
+          populateInfoWindow(this, largeInfoWindow, this.map)
+        }
       });
 
       window.google.maps.event.addListener(this.map, 'click', function () {
@@ -123,6 +139,7 @@ loadMap() {
     }
 
       this.map.fitBounds(bounds);
+
     
       // Info Window
       function populateInfoWindow(marker, infowindow, map) {
@@ -176,7 +193,6 @@ loadMap() {
                   infowindow.setContent("Sorry data can't be loaded");
               });
       }
-
   }
 }
 }

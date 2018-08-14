@@ -20,10 +20,15 @@ class App extends Component {
     this.state = {
       locations: locations,
       query: '',
-      markers: []
+      markers: [],
+      markerDataFromChild: null
     }
     
   };
+  
+  myCallback = (dataFromChild) => {
+    this.setState({ markerDataFromChild : dataFromChild });
+}
 
 updateQuery = (query) => {
   this.setState({
@@ -58,13 +63,14 @@ gm_authFailure() {
             query= {this.state.query}  
             locations={locations}
             onChange={(event) => this.updateQuery(event.target.value)}
+            callbackFromParent = {this.myCallback}
           >
           </Map>
           <ListContainer
             locations={locations}
             onChange={(event) => this.updateQuery(event.target.value)}  
-            query= {this.state.query}   
-            
+            query= {this.state.query} 
+            marker= {this.state.markerDataFromChild}  
             />    
         </div>
     )
