@@ -37,7 +37,6 @@ updateQuery = (query) => {
   render() {
    
     let locations = this.state.locations;
-   
     
     if (!this.props.loaded){
       return <div>Loading...</div>

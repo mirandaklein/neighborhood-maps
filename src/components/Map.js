@@ -129,7 +129,10 @@ loadMap() {
         // Check to make sure the infowindow is not already opened on this marker.
         if (infowindow.marker !== marker) {
           infowindow.marker = marker;
-          marker.setAnimation(window.google.maps.Animation.BOUNCE);
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+          setTimeout(function () {
+            marker.setAnimation(null);
+          }, 1520);
           infowindow.setContent('<div>' + marker.title + '</div>');
           infowindow.open(map, marker);
           getMarkerInfo(marker);
