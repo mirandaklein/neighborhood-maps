@@ -173,7 +173,7 @@ loadMap() {
                   }
               )
               .catch(function (err) {
-                  self.state.infowindow.setContent("Sorry data can't be loaded");
+                  infowindow.setContent("Sorry data can't be loaded");
               });
       }
 
