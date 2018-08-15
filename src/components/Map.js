@@ -44,6 +44,7 @@ addFilteredMarkers(){
    marker.setMap(this.map);
    let matches = marker.title.match(filteredLocations);
    if (matches){
+     this.populateInfoWindow(marker, this.state.infowindow, this.map);
     marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
     }
  });
