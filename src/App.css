@@ -46,7 +46,9 @@ position: absolute;
  
 }
 
-
+#locations-list-item, li{
+  width: 90%;
+}
 
 
 

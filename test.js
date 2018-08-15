@@ -1,13 +1,14 @@
-
-function test(){
-   
-    for(let i=0; i< 10; i++){
-        let counter = 0;
-        counter++;
-    } 
-    console.log(counter);
-
-
+function PrintPerson(person) {
+    console.log(person);
 }
 
-test()
+function PrintParker() {
+  
+    let p = {
+        Name: "Parker",
+        Age: "10000"
+    }
+    PrintPerson(p)
+}
+
+PrintPerson()
