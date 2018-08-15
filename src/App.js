@@ -84,12 +84,6 @@ myCallback = (dataFromChild) => {
 }
 
 
- 
-onClick = () =>{
-  this.populateInfoWindow();
-}
-
-
 updateQuery = (query) => {
   this.setState({
     query: query
@@ -130,9 +124,7 @@ gm_authFailure() {
           <ListContainer
             locations={locations}
             onChange={(event) => this.updateQuery(event.target.value)}  
-            query= {this.state.query} 
-            onClick={(event) => this.onClick(event.target.value)}
-
+            query= {this.state.query}
             />    
         </div>
     )
