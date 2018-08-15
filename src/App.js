@@ -25,57 +25,9 @@ class App extends Component {
     
   };
 
-  populateInfoWindow(marker, infowindow, map) {
-    // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker !== marker) {
-      infowindow.marker = marker;
-      marker.setAnimation(this.google.maps.Animation.BOUNCE);
-      setTimeout(function () {
-        marker.setAnimation(null);
-      }, 1520);
-      infowindow.setContent('<div>' + marker.title + '</div>');
-      infowindow.open(map, marker);
-      getMarkerInfo(marker);
-
-      // Make sure the marker property is cleared if the infowindow is closed.
-      infowindow.addListener('closeclick', function () {
-            infowindow.marker = null;
-            if (infowindow.marker !== marker) {
-              marker.setAnimation(null);
-            }
-      });
-    }
-
-      function getMarkerInfo(marker) {
-        var self = this;
-        var clientId = "CRPNQZKLQSLFOOPWSUQS3BBYIMZS01RIR22KIGNMYP2LSHI2";
-        var clientSecret = "HR2WRPIRAHBKOMJKAXAZ2CKNUDUZJMWDPX1A0THJSTCTYMR4";
-        var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng() + "&limit=1";
-        fetch(url)
-          .then(
-            function (response) {
-              if (response.status !== 200) {
-                self.state.infowindow.setContent("Sorry data can't be loaded");
-                return;
-              }
-
-              // Examine the text in the response
-              response.json().then(function (data) {
-                var location_data = data.response.venues[0];
-                var verified = '<b>Verified Location: </b>' + (location_data.verified ? 'Yes' : 'No') + '<br>';
-                var checkinsCount = '<b>Number of CheckIn: </b>' + location_data.stats.checkinsCount + '<br>';
-                var usersCount = '<b>Number of Users: </b>' + location_data.stats.usersCount + '<br>';
-                var tipCount = '<b>Number of Tips: </b>' + location_data.stats.tipCount + '<br>';
-                var readMore = '<a href="https://foursquare.com/v/' + location_data.id + '" target="_blank">Read More on Foursquare Website</a>'
-                infowindow.setContent(checkinsCount + usersCount + tipCount + verified + readMore);
-              });
-            })
-          .catch(function (err) {
-            infowindow.setContent("Sorry data can't be loaded");
-          });
-      }
+  onClick = () => {
+    alert('hey')
   }
-
 
 
 myCallback = (dataFromChild) => {
@@ -116,15 +68,16 @@ gm_authFailure() {
              }
             query= {this.state.query}  
             locations={locations}
-            onChange={(event) => this.updateQuery(event.target.value)}
-            callbackFromParent = {this.myCallback}
-            infowindowOpen = {this.populateInfoWindow}
+            onClick = {(event)=> this.onClick(event.target.value)}
+
           >
           </Map>
           <ListContainer
+            google={this.props.google}
             locations={locations}
             onChange={(event) => this.updateQuery(event.target.value)}  
             query= {this.state.query}
+            onClick = {(event)=> this.onClick(event.target.value)}
             />    
         </div>
     )
