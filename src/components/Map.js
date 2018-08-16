@@ -35,6 +35,8 @@ clearMarkers() {
   }
 }
 
+
+
 addFilteredMarkers(){
   let filteredLocations = this.filterLocations();
   let filteredMarkers = this.markers.filter(marker => 
@@ -44,7 +46,7 @@ addFilteredMarkers(){
    marker.setMap(this.map);
    let matches = marker.title.match(filteredLocations);
    if (matches){
-     this.populateInfoWindow(marker, this.state.infowindow, this.map);
+    this.populateInfoWindow(marker, this.state.infowindow, this.map);
     marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
     }
  });
@@ -57,6 +59,17 @@ updateMap() {
   this.addFilteredMarkers();
 }
 
+/*locationListInfoWindow() {
+  let clickedLocations
+  if (this.props.onListClick) {
+    let match;
+    clickedLocations= this.props.locations.filter((location) => match.test(location.title))
+  } else{
+    clickedLocations = this.props.locations;
+  }
+  console.log(clickedLocations);
+}
+*/ 
 
 filterLocations() {
   let showingLocations

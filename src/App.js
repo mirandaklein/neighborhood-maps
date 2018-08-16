@@ -25,7 +25,7 @@ class App extends Component {
     
   };
 
-  onClick = () => {
+  /*onClick = () => {
     alert('hey')
   }
 
@@ -34,7 +34,7 @@ myCallback = (dataFromChild) => {
   this.setState({ marker : dataFromChild })
   console.log(this.state.marker);
 }
-
+*/
 
 updateQuery = (query) => {
   this.setState({
@@ -68,7 +68,7 @@ gm_authFailure() {
              }
             query= {this.state.query}  
             locations={locations}
-            onClick = {(event)=> this.onClick(event.target.value)}
+           //  onListClick = {(event)=> this.onClick(event.target.value)}
 
           >
           </Map>
@@ -77,7 +77,7 @@ gm_authFailure() {
             locations={locations}
             onChange={(event) => this.updateQuery(event.target.value)}  
             query= {this.state.query}
-            onClick = {(event)=> this.onClick(event.target.value)}
+          //  onListClick = {(event)=> this.onClick(event.target.value)}
             />    
         </div>
     )
