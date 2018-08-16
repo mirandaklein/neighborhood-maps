@@ -9,6 +9,7 @@ import ListContainer from './components/ListContainer.js';
 class App extends Component {
   constructor(){
     super();
+    this.handleClick = this.handleClick.bind(this);
     let locations= [
       {title: 'Barleys Taproom & Pizzeria', location: {lat: 35.9709, lng: -83.9173}},
       {title: 'Preservation Pub', location: {lat: 35.9657, lng: -83.9196}},
@@ -20,21 +21,15 @@ class App extends Component {
     this.state = {
       locations: locations,
       query: '',
-      marker: []
     }
     
   };
 
-  /*onClick = () => {
-    alert('hey')
+  handleClick = () => {
+    console.log('clicked');
   }
 
 
-myCallback = (dataFromChild) => {
-  this.setState({ marker : dataFromChild })
-  console.log(this.state.marker);
-}
-*/
 
 updateQuery = (query) => {
   this.setState({
@@ -68,7 +63,7 @@ gm_authFailure() {
              }
             query= {this.state.query}  
             locations={locations}
-           //  onListClick = {(event)=> this.onClick(event.target.value)}
+            onListClick={(event)=> this.onClick(event.target.value)}
 
           >
           </Map>
@@ -77,7 +72,7 @@ gm_authFailure() {
             locations={locations}
             onChange={(event) => this.updateQuery(event.target.value)}  
             query= {this.state.query}
-          //  onListClick = {(event)=> this.onClick(event.target.value)}
+            onListClick = {(event)=> this.handleClick(event.target.value)}
             />    
         </div>
     )

@@ -68,8 +68,10 @@ updateMap() {
     clickedLocations = this.props.locations;
   }
   console.log(clickedLocations);
+  return clickedLocations;
 }
-*/ 
+*/
+ 
 
 filterLocations() {
   let showingLocations

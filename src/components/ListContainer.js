@@ -39,7 +39,7 @@ export default class ListContainer extends Component{
                             key={location.title} 
                             className='locations-list-item' 
                             tabIndex='0'
-                           // onClick = {this.props.onClick.bind(this)}
+                            onClick = {this.props.onListClick.bind(this)}
                          >
                         <p>{location.title}</p>
                         </li>
