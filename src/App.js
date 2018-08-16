@@ -27,7 +27,8 @@ class App extends Component {
 
   handleClick = () => {
     console.log('clicked');
-  }
+    }
+  
 
 
 
@@ -63,7 +64,7 @@ gm_authFailure() {
              }
             query= {this.state.query}  
             locations={locations}
-            onListClick={(event)=> this.onClick(event.target.value)}
+            onListClick={(event)=> this.handleClick(event.target.value)}
 
           >
           </Map>
