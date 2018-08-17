@@ -44,7 +44,7 @@ addFilteredMarkers(clickedText){
  filteredMarkers.forEach(marker => {
    marker.setMap(this.map);
    let matches = marker.title.match(filteredLocations);
-   if (matches || marker.title === this.props.clickedText){
+   if (matches || marker.title === clickedText){
     this.populateInfoWindow(marker, this.state.infowindow, this.map);
     marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
     } else {
@@ -55,7 +55,7 @@ addFilteredMarkers(clickedText){
 
 updateMap() {
   this.clearMarkers();
-  this.addFilteredMarkers();
+  this.addFilteredMarkers(this.props.clickedText);
 }
 
 /*locationListInfoWindow() {
