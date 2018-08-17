@@ -26,12 +26,11 @@ componentDidUpdate(prevProps, prevState) {
    } else {
        this.ignoreFirstUpdate = false
    }
-    
+  
 }
 
 componentDidMount() {
   this.loadMap(); // call loadMap function to load the google map
-  console.log("2")
 }
 
 clearMarkers() {

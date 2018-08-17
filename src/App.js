@@ -20,6 +20,7 @@ class App extends Component {
       {title: 'Bar Marley', location: {lat: 35.9755, lng: -83.9245}},
       {title: 'Sassy Anns', location: {lat: 35.9800, lng: -83.9173}},
       {title: 'Alliance Brewing Co & Landing House', location: {lat: 35.9596, lng: -83.9030}},
+      {title: 'Public House', location: {lat: 35.9717, lng: -83.9209}},
 
     ]
    
@@ -37,9 +38,7 @@ class App extends Component {
     })
   }
   
-
-
-
+  
 updateQuery = (query) => {
   this.setState({
     query: query
@@ -72,7 +71,6 @@ gm_authFailure() {
             query= {this.state.query}  
             locations={locations}
             clickedText={this.state.clickedText}
-
           >
           </Map>
           <ListContainer
