@@ -8,7 +8,7 @@ export default class Map extends Component {
   constructor(props, map, state) {
     super(props);
     const {lat, lng } = this.props.initialCenter;
-    this.markers = 
+    this.markers = []
     this.map =
     this.state = {
       currentLocation: {
@@ -36,7 +36,7 @@ clearMarkers() {
 }
 
 
-addFilteredMarkers(){
+addFilteredMarkers(clickedText){
   let filteredLocations = this.filterLocations();
   let filteredMarkers = this.markers.filter(marker => 
                           filteredLocations.find(location => marker.title === location.title))
@@ -44,7 +44,7 @@ addFilteredMarkers(){
  filteredMarkers.forEach(marker => {
    marker.setMap(this.map);
    let matches = marker.title.match(filteredLocations);
-   if (matches){
+   if (matches || marker.title === this.props.clickedText){
     this.populateInfoWindow(marker, this.state.infowindow, this.map);
     marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
     } else {
@@ -52,8 +52,6 @@ addFilteredMarkers(){
     }
  });
 }
-
-
 
 updateMap() {
   this.clearMarkers();
@@ -73,7 +71,6 @@ updateMap() {
 }
 */
  
-
 filterLocations() {
   let showingLocations
   if (this.props.query || this.props.onListClick) {

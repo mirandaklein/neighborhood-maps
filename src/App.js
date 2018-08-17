@@ -21,13 +21,16 @@ class App extends Component {
     this.state = {
       locations: locations,
       query: '',
+      clickedText: ''
     }
     
   };
 
-  handleClick = () => {
-    console.log('clicked');
-    }
+  handleClick = (event) => {
+    this.setState({
+      clickedText: event.target.textContent
+    })
+  }
   
 
 
@@ -45,7 +48,6 @@ gm_authFailure() {
 
 
   render() {
-   
     let locations = this.state.locations;
     
     if (!this.props.loaded){
@@ -64,7 +66,7 @@ gm_authFailure() {
              }
             query= {this.state.query}  
             locations={locations}
-            onListClick={(event)=> this.handleClick(event.target.value)}
+            clickedText={this.state.clickedText}
 
           >
           </Map>
@@ -73,7 +75,7 @@ gm_authFailure() {
             locations={locations}
             onChange={(event) => this.updateQuery(event.target.value)}  
             query= {this.state.query}
-            onListClick = {(event)=> this.handleClick(event.target.value)}
+            onListClick = {this.handleClick}
             />    
         </div>
     )
