@@ -36,7 +36,7 @@ clearMarkers() {
 }
 
 
-addFilteredMarkers(clickedText){
+addFilteredMarkers(){
   let filteredLocations = this.filterLocations();
   let filteredMarkers = this.markers.filter(marker => 
                           filteredLocations.find(location => marker.title === location.title))
@@ -44,32 +44,21 @@ addFilteredMarkers(clickedText){
  filteredMarkers.forEach(marker => {
    marker.setMap(this.map);
    let matches = marker.title.match(filteredLocations);
-   if (matches || marker.title === clickedText){
+   let moreMatches = this.props.clickedText.match(marker.title);
+   if (matches || moreMatches){
     this.populateInfoWindow(marker, this.state.infowindow, this.map);
     marker.setAnimation(this.props.google.maps.Animation.BOUNCE);
     } else {
-      this.state.infowindow.close();
+      marker.setAnimation(null);
     }
  });
 }
 
 updateMap() {
   this.clearMarkers();
-  this.addFilteredMarkers(this.props.clickedText);
+  this.addFilteredMarkers();
 }
 
-/*locationListInfoWindow() {
-  let clickedLocations
-  if (this.props.onListClick) {
-    let match;
-    clickedLocations= this.props.locations.filter((location) => match.test(location.title))
-  } else{
-    clickedLocations = this.props.locations;
-  }
-  console.log(clickedLocations);
-  return clickedLocations;
-}
-*/
  
 filterLocations() {
   let showingLocations
@@ -152,7 +141,144 @@ loadMap() {
     const center = new maps.LatLng(lat, lng);
     const mapConfig = Object.assign({}, {
       center: center,
-      zoom: zoom
+      zoom: zoom,
+      styles: [
+        {
+            "featureType": "landscape.man_made",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#f7f1df"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape.natural",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#d0e3b4"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape.natural.terrain",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.business",
+            "elementType": "all",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.medical",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#fbd3da"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#bde6ab"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "geometry.stroke",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "off"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#ffe15f"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry.stroke",
+            "stylers": [
+                {
+                    "color": "#efd151"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#ffffff"
+                }
+            ]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "black"
+                }
+            ]
+        },
+        {
+            "featureType": "transit.station.airport",
+            "elementType": "geometry.fill",
+            "stylers": [
+                {
+                    "color": "#cfb2db"
+                }
+            ]
+        },
+        {
+            "featureType": "water",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#a2daf2"
+                }
+            ]
+        }
+    ]
     })
 
     this.map = new maps.Map(node, mapConfig); // creates a new Google map on the specified node (ref='map') with the specified configuration set above.
@@ -198,7 +324,7 @@ loadMap() {
       bounds.extend(marker.position);
     }
 
-      this.map.fitBounds(bounds);
+    this.map.fitBounds(bounds);
     
       // Info Window
 }

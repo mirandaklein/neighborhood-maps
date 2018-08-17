@@ -15,7 +15,12 @@ class App extends Component {
       {title: 'Preservation Pub', location: {lat: 35.9657, lng: -83.9196}},
       {title: 'Downtown Grill and Brewery', location: {lat: 35.9657, lng:-83.9181}},
       {title: 'Sutrees High Gravity Tavern & Harrogates Lounge', location: {lat: 35.9660, lng: -83.9189}},
-      {title: 'Pilot Light', location: {lat: 35.9705, lng: -83.9181}}
+      {title: 'Clancys Tavern & Whiskey House', location: {lat: 35.9643, lng: -83.9175}},
+      {title: 'Peter Kern Library', location: {lat: 35.9647, lng: -83.9197}},
+      {title: 'Bar Marley', location: {lat: 35.9755, lng: -83.9245}},
+      {title: 'Sassy Anns', location: {lat: 35.9800, lng: -83.9173}},
+      {title: 'Alliance Brewing Co & Landing House', location: {lat: 35.9596, lng: -83.9030}},
+
     ]
    
     this.state = {

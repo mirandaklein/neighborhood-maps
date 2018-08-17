@@ -51,7 +51,6 @@ position: absolute;
 }
 
 
-
 /*Media Query for Phones*/
 
 @media only screen and (min-width : 769px) {
@@ -70,3 +69,5 @@ position: absolute;
     
   }
   }
+
+  
