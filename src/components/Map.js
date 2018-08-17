@@ -5,11 +5,12 @@ import escapeRegExp from 'escape-string-regexp';
 import sortBy from 'sort-by';
 
 export default class Map extends Component {
-  constructor(props, map, state) {
+  constructor(props, map, state, ignoreFirstUpdate) {
     super(props);
     const {lat, lng } = this.props.initialCenter;
     this.markers = []
     this.map =
+    this.ignoreFirstUpdate = true
     this.state = {
       currentLocation: {
         lat: lat,
@@ -20,13 +21,17 @@ export default class Map extends Component {
   }
 
 componentDidUpdate(prevProps, prevState) {
-  //if (prevProps.google !== this.props.google) {
-  this.updateMap();
-  //}
+  if (!this.ignoreFirstUpdate){
+    this.updateMap();
+   } else {
+       this.ignoreFirstUpdate = false
+   }
+    
 }
 
 componentDidMount() {
   this.loadMap(); // call loadMap function to load the google map
+  console.log("2")
 }
 
 clearMarkers() {

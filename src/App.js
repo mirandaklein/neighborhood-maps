@@ -13,7 +13,7 @@ class App extends Component {
     let locations= [
       {title: 'Barleys Taproom & Pizzeria', location: {lat: 35.9709, lng: -83.9173}},
       {title: 'Preservation Pub', location: {lat: 35.9657, lng: -83.9196}},
-      {title: 'Downtown Grill and Brewery', location: {lat: 35.9657, lng:-83.9181}},
+      {title: 'Sapphire A Modern Bar', location: {lat: 35.9657, lng:-83.9181}},
       {title: 'Sutrees High Gravity Tavern & Harrogates Lounge', location: {lat: 35.9660, lng: -83.9189}},
       {title: 'Clancys Tavern & Whiskey House', location: {lat: 35.9643, lng: -83.9175}},
       {title: 'Peter Kern Library', location: {lat: 35.9647, lng: -83.9197}},
