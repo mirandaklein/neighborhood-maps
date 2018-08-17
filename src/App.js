@@ -31,6 +31,9 @@ class App extends Component {
     }
     
   };
+  componentDidMount(){
+    window.gm_authFailure = this.gm_authFailure;
+}
 
   handleClick = (event) => {
     this.setState({
