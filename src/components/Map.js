@@ -128,8 +128,8 @@ populateInfoWindow(marker, infowindow, map) {
              }
          )
          .catch(function (err) {
-             self.state.infowindow.setContent("Sorry data can't be loaded");
-         });
+                console.log("Foursquare API has failed to load")         
+            });
  }
 
 }
