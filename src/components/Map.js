@@ -110,13 +110,16 @@ populateInfoWindow(marker, infowindow, map) {
 
                  // Examine the text in the response
                  response.json().then(function (data) {
+                    // var name = location_data.name;
                      var location_data = data.response.venues[0];
+                     var name = location_data.name + '<br>';
+                     var address = location_data.location.address + '<br>';
                      var verified = '<b>Verified Location: </b>' + (location_data.verified ? 'Yes' : 'No') + '<br>';
                      var checkinsCount = '<b>Number of CheckIn: </b>' + location_data.stats.checkinsCount + '<br>';
                      var usersCount = '<b>Number of Users: </b>' + location_data.stats.usersCount + '<br>';
                      var tipCount = '<b>Number of Tips: </b>' + location_data.stats.tipCount + '<br>';
                      var readMore = '<a href="https://foursquare.com/v/'+ location_data.id +'" target="_blank">Read More on Foursquare Website</a>'
-                     infowindow.setContent(checkinsCount + usersCount + tipCount + verified + readMore);
+                     infowindow.setContent(name + address + checkinsCount + usersCount + tipCount + verified + readMore);
                  });
              }
          )
