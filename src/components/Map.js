@@ -104,7 +104,7 @@ populateInfoWindow(marker, infowindow, map) {
      var clientId = "CRPNQZKLQSLFOOPWSUQS3BBYIMZS01RIR22KIGNMYP2LSHI2";
      var clientSecret = "HR2WRPIRAHBKOMJKAXAZ2CKNUDUZJMWDPX1A0THJSTCTYMR4";
      var url = "https://api.foursquare.com/v2/venues/search?client_id=" + clientId + "&client_secret=" + clientSecret + "&v=20130815&ll=" + marker.getPosition().lat() + "," + marker.getPosition().lng() + "&limit=1";
-     fetch(url)
+     fetch()
          .then(
              function (response) {
                  if (response.status !== 200) {
@@ -128,7 +128,7 @@ populateInfoWindow(marker, infowindow, map) {
              }
          )
          .catch(function (err) {
-                console.log("Foursquare API has failed to load")         
+                infowindow.setContent("Foursquare API has failed to load");
             });
  }
 
